@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, ForbiddenException, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, ForbiddenException, Delete, Put } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';
 import { CategoryCreateDto } from '@libs/common/dto/admin/category/create.dto';
@@ -33,7 +33,7 @@ export class CategoriesController {
   }
 
   @ApiOperation({ summary: '更新某分类的信息' })
-  @Post('update/:id')
+  @Put('update/:id')
   updateCategory(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateDto: CategoryUpdateDto
