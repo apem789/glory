@@ -29,7 +29,7 @@ export class CategoryRepository extends Repository<Category> {
   async updateOneCategory(id: number, updateDto: CategoryUpdateDto): Promise<void> {
     const { name: newName, parentId, description } = updateDto
 
-    const currentCategory = await this.findOne({ id })
+    const currentCategory = id && await this.findOne({ id })
     if (!currentCategory) {
       throw new ForbiddenException('想要修改的类别不存在')
     }
@@ -57,6 +57,18 @@ export class CategoryRepository extends Repository<Category> {
       list,
       count,
     }
+  }
+
+  /**
+   * 根据id查询某个分类信息
+   * @param id id号
+   */
+  async getCategoryById(id: number): Promise<Category> {
+    const currentCategory = id && await this.findOne({ id })
+    if (!currentCategory) {
+      throw new ForbiddenException('对应的分类不存在')
+    }
+    return currentCategory
   }
 
   /**

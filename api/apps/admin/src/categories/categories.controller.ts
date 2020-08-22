@@ -13,11 +13,18 @@ export class CategoriesController {
   constructor(
     private readonly categoryService: CategoriesService
   ) {}
+
   @ApiOperation({ summary: '获取分类列表' })
-  @Get('list')
+  @Get('')
   getCategoryList(@Query() selectDto: SelectDto) {
     console.log('query: ', selectDto)
     return this.categoryService.getCategoryList(selectDto)
+  }
+
+  @ApiOperation({ summary: '查询某id分类的详细信息' })
+  @Get(':id')
+  getCategoryById(@Param('id', ParseIntPipe) id: number) {
+    return this.categoryService.getCategoryById(id)
   }
 
   @ApiOperation({ summary: '新建分类' })
@@ -27,7 +34,7 @@ export class CategoriesController {
   }
 
   @ApiOperation({ summary: '更新某分类的信息' })
-  @Post('update:id')
+  @Post('update/:id')
   updateCategory(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateDto: CategoryUpdateDto

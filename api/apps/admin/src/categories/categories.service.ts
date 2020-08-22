@@ -10,7 +10,7 @@ export class CategoriesService {
   constructor(
     @InjectRepository(CategoryRepository)
     private readonly categoryReopitory: CategoryRepository
-  ) {}
+  ) { }
 
   /**
    * 创建新的分类
@@ -69,5 +69,14 @@ export class CategoriesService {
       ...res,
       ...selectDto,
     }
+  }
+
+  /**
+   * 根据id查询某个分类信息
+   * @param id id号
+   */
+  async getCategoryById(id: number) {
+    const detail = await this.categoryReopitory.getCategoryById(id)
+    return detail
   }
 }
