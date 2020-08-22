@@ -5,7 +5,6 @@ import { CategoryCreateDto } from '@libs/common/dto/admin/category/create.dto';
 import { CategoryUpdateDto } from '@libs/common/dto/admin/category/update.dto';
 import { SelectDto } from '@libs/common/dto/admin/category/select.dto';
 import { DeleteMoreDto } from '@libs/common/dto/admin/category/delete.dto';
-import { ParseIntArrayPipe } from '@libs/common/pipe/public/parse-int-array.pipe';
 
 @ApiTags('分类管理')
 @Controller('categories')
