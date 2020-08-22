@@ -1,34 +1,52 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, ForbiddenException, Delete } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { CategoriesService } from './categories.service';
+import { CategoryCreateDto } from '@libs/common/dto/admin/category/create.dto';
+import { CategoryUpdateDto } from '@libs/common/dto/admin/category/update.dto';
+import { SelectDto } from '@libs/common/dto/admin/category/select.dto';
+import { DeleteMoreDto } from '@libs/common/dto/admin/category/delete.dto';
+import { ParseIntArrayPipe } from '@libs/common/pipe/public/parse-int-array.pipe';
 
 @ApiTags('分类管理')
 @Controller('categories')
 export class CategoriesController {
-  // TODO
-  /**
-   * 创建分类
-   * 分类列表
-   * 修改分类
-   * 删除分类
-   * 子分类
-   */
-
+  constructor(
+    private readonly categoryService: CategoriesService
+  ) {}
+  @ApiOperation({ summary: '获取分类列表' })
   @Get('list')
-  getCategoryList() {
-    return [
-      {
-        title: '',
-        name: '',
-        des: '',
-        index: 0
-      }
-    ]
+  getCategoryList(@Query() selectDto: SelectDto) {
+    console.log('query: ', selectDto)
+    return this.categoryService.getCategoryList(selectDto)
   }
 
-  @Post('/add')
-  createNewCategory(@Body() body) {
-    return {
-      msg: '创建新分类'
-    }
+  @ApiOperation({ summary: '新建分类' })
+  @Post('create')
+  createNewCategory(@Body() createDto: CategoryCreateDto) {
+    return this.categoryService.createNewCategory(createDto)
+  }
+
+  @ApiOperation({ summary: '更新某分类的信息' })
+  @Post('update:id')
+  updateCategory(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateDto: CategoryUpdateDto
+  ) {
+    return this.categoryService.updateCategory(id, updateDto)
+  }
+
+  @ApiOperation({ summary: '删除某id分类' })
+  @Delete('delete/:id')
+  deletCategory(@Param('id', ParseIntPipe) id: number) {
+    console.log('id ', id)
+    return this.categoryService.deleteCategoryById(id)
+  }
+
+  @ApiOperation({ summary: '删除一组id的分类' })
+  @Delete('delete')
+  deleteCategories(@Body() deleteMoreDto: DeleteMoreDto) {
+    const { ids } = deleteMoreDto
+    console.log('ids is ', ids)
+    return this.categoryService.deleteCategoriesByIds(ids)
   }
 }

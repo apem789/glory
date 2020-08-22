@@ -1,5 +1,6 @@
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Admin } from '../entities/admin.entity';
+import { Category } from '../entities/category.eneity';
 
 /** 默认db配置, 需手动写入需要的表 */
 export class DBDefualtConfigService implements TypeOrmOptionsFactory {
@@ -13,7 +14,8 @@ export class DBDefualtConfigService implements TypeOrmOptionsFactory {
       password: process.env.DB_PASSWORD,
       synchronize: true,
       entities: [
-        Admin
+        Admin,
+        Category
       ]
     }
   }
