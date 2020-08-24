@@ -8,7 +8,7 @@ import { DbModule } from '@libs/db';
     ConfigModule.forRoot({
       envFilePath: '.env'
     }),
-    DbModule,
+    DbModule
   ],
   providers: [CommonService],
   exports: [CommonService],

@@ -1,6 +1,8 @@
-import { Controller, Post, Get, Param, ParseIntPipe, Query, Delete, Body, Put } from '@nestjs/common';
+import { Controller, Post, Get, Param, ParseIntPipe, Query, Delete, Body, Put, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminsService } from './admins.service';
+import { JwtGaurdForAdmin } from '@libs/common/guard/admin/jwt.guard';
+import { LocalGuardForAdmin } from '@libs/common/guard/admin/local.guard';
 
 @ApiTags('管理员模块')
 @Controller('admins')
@@ -10,6 +12,7 @@ export class AdminsController {
   ) {}
 
   @ApiOperation({ summary: '登录授权' })
+  @UseGuards(LocalGuardForAdmin)
   @Post('login')
   login() {
     return this.adminService.login()
@@ -26,6 +29,7 @@ export class AdminsController {
 
   @ApiOperation({ summary: '获取id号管理员详细信息' })
   @ApiBearerAuth()
+  @UseGuards(JwtGaurdForAdmin)
   @Get(':id')
   adminInfo(
     @Param('id', ParseIntPipe) id: number

@@ -5,7 +5,6 @@ import { ErrorTypeEnum, ErrorValueEnum } from "../error/error.enum";
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException|Error|any, host: ArgumentsHost): void {
-    throw new Error("Method not implemented.");
     const ctx = host.switchToHttp()
     const request = ctx.getRequest()
     const response = ctx.getResponse()
@@ -16,7 +15,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     // 自定义处理
     const errorCode = exception.response?.errorCode || ErrorTypeEnum.ERROR_TYPE_DEFAULT
     const message = exception.message || ErrorValueEnum.ERROR_TYPE_DEFAULT
-
+    
     response
       .status(status)
       .json({
