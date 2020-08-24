@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 /** 列表查询参数dto */
-export class SelectDto {
+export class CategorySelectDto {
   @ApiProperty({ type: Number, required: true, description: '偏移量,默认:0', example: 0, default: 0 })
   start: number
 

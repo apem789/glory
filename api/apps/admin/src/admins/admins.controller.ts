@@ -4,6 +4,7 @@ import { AdminsService } from './admins.service';
 import { JwtGaurdForAdmin } from '@libs/common/guard/admin/jwt.guard';
 import { LocalGuardForAdmin } from '@libs/common/guard/admin/local.guard';
 import { NotJwtAuthGaurd } from '@libs/common/decorator/not-jwt-auth.decorator';
+import { CategoryDeleteMoreDto } from '@libs/common/dto/admin/category/delete.dto';
 
 @ApiTags('管理员模块')
 @Controller('admins')
@@ -75,7 +76,7 @@ export class AdminsController {
   @ApiOperation({ summary: '删除一组id的管理员' })
   @ApiBearerAuth()
   @Delete('delete')
-  deleteAdmins(@Body() body) {
+  deleteAdmins(@Body() deleteMoreCategoryDto: CategoryDeleteMoreDto) {
     return {
       msg: '全部删除成功'
     }

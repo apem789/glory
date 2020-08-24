@@ -6,7 +6,7 @@ export class Admin {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({ comment: '账号' })
+  @Column({ comment: '账号', unique: true })
   account: string
 
   @Column({ comment: '密码' })

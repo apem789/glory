@@ -5,7 +5,7 @@ import { ForbiddenException } from "@nestjs/common";
 import { CategoryUpdateDto } from "../dto/admin/category/update.dto";
 import { SelectDto } from "../dto/admin/category/select.dto";
 
-/** 分类表操作 */
+/** 分类表-操作 */
 @EntityRepository(Category)
 export class CategoryRepository extends Repository<Category> {
 
