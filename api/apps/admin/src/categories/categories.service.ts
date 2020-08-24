@@ -3,7 +3,7 @@ import { CategoryRepository } from '@libs/common/repositories/category.repositor
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryCreateDto } from '@libs/common/dto/admin/category/create.dto';
 import { CategoryUpdateDto } from '@libs/common/dto/admin/category/update.dto';
-import { SelectDto } from '@libs/common/dto/admin/category/select.dto';
+import { CategorySelectDto } from '@libs/common/dto/admin/category/select.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -62,7 +62,7 @@ export class CategoriesService {
    * @param start 开始的偏移量
    * @param limit 返回的条数
    */
-  async getCategoryList(selectDto: SelectDto) {
+  async getCategoryList(selectDto: CategorySelectDto) {
 
     const res = await this.categoryReopitory.getCategoryList(selectDto)
     return {

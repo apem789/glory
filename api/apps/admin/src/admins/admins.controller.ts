@@ -5,6 +5,8 @@ import { JwtGaurdForAdmin } from '@libs/common/guard/admin/jwt.guard';
 import { LocalGuardForAdmin } from '@libs/common/guard/admin/local.guard';
 import { NotJwtAuthGaurd } from '@libs/common/decorator/not-jwt-auth.decorator';
 import { CategoryDeleteMoreDto } from '@libs/common/dto/admin/category/delete.dto';
+import { AdminLoginDto } from '@libs/common/dto/admin/admin/login.dto';
+import { AdminCreateDto } from '@libs/common/dto/admin/admin/create.dto';
 
 @ApiTags('管理员模块')
 @Controller('admins')
@@ -16,8 +18,8 @@ export class AdminsController {
   @ApiOperation({ summary: '登录授权' })
   @UseGuards(LocalGuardForAdmin)
   @Post('login')
-  login() {
-    return this.adminService.login()
+  login(loginDto: AdminLoginDto) {
+    return this.adminService.login(loginDto)
   }
 
   @ApiOperation({ summary: '已登录的管理员创建一个新的管理员账号' })
@@ -25,10 +27,8 @@ export class AdminsController {
   @UseGuards(JwtGaurdForAdmin)
   @NotJwtAuthGaurd()
   @Post('register')
-  register() {
-    return {
-      msg: '成功添加新的管理员账号'
-    }
+  register(createDto: AdminCreateDto) {
+    return this.adminService.register(createDto)
   }
 
   @ApiOperation({ summary: '获取id号管理员详细信息' })

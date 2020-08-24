@@ -12,7 +12,7 @@ export class AdminRepository extends Repository<Admin> {
    * 账号登录
    * @param loginDto 
    */
-  async login(loginDto: AdminLoginDto): Promise<void> {
+  async login(loginDto: AdminLoginDto): Promise<Admin> {
     // TODO
     // 注册时密码未加密直接查数据库先
     const { account, secret } = loginDto
@@ -21,6 +21,7 @@ export class AdminRepository extends Repository<Admin> {
     if (!currentAdmin) {
       throw new NotFound('用户不存在', ErrorTypeEnum.ERROR_TYPE_400)
     }
+    return currentAdmin
   }
 
   /**

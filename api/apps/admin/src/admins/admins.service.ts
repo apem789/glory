@@ -1,26 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { AuthService } from '@libs/auth';
+import { AdminLoginDto } from '@libs/common/dto/admin/admin/login.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AdminRepository } from '@libs/common/repositories/admin.repository';
+import { JWTPayloadAdminInterface } from '@libs/common/interface/admin/jwt-payload.interface';
+import { AdminCreateDto } from '@libs/common/dto/admin/admin/create.dto';
 
 @Injectable()
 export class AdminsService {
   constructor(
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    @InjectRepository(AdminRepository)
+    private readonly adminRepository: AdminRepository
   ) {}
 
-  /** 授权登录 */
-  async login(): Promise<{token: string}> {
-    // TODO
-    // 测试
-    const token = await this.authService.generalToken({
-      id: 321123,
-      name: '大哥大',
-      mobile: '1234567891',
-    })
-    console.log('根据配置生成的token: ', token)
-    const res = await this.authService.verifyToken(token)
-    console.log('查看token明文信息: ', res)
+  /**
+   * 授权登录
+   * 登录-生成token
+   * @param loginDto 
+   */
+  async login(loginDto: AdminLoginDto): Promise<{token: string}> {
+    const currentAdmin = await this.adminRepository.login(loginDto)
+    const payload: JWTPayloadAdminInterface = {
+      id: currentAdmin.id
+    }
+    const token = await this.authService.generalToken(payload)
     return {
       token
+    }
+  }
+
+  /**
+   * 注册新管理员
+   * @param createDto 
+   */
+  async register(createDto: AdminCreateDto): Promise<{message: string}> {
+    await this.adminRepository.register(createDto)
+    return {
+      message: '注册成功'
     }
   }
 }
