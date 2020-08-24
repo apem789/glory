@@ -1,13 +1,19 @@
 import { AuthGuard } from "@nestjs/passport";
-import { Injectable, ExecutionContext } from "@nestjs/common";
+import { Injectable, ExecutionContext, Inject } from "@nestjs/common";
 import { Observable } from 'rxjs';
 import { ErrorValueEnum, ErrorTypeEnum } from "@libs/common/error/error.enum";
 import { Forbidden, Unauthorized } from "@libs/common/error/exeception";
+import { Reflector } from "@nestjs/core";
+import { AuthServiceUtil } from "libs/util/src/auth/auth.service";
 
 /** 自定义 admin-api JWT守卫 */
 @Injectable()
 export class JwtGaurdForAdmin extends AuthGuard('jwt') {
-  constructor() {
+  constructor(
+    private readonly reflectot: Reflector,
+    @Inject(AuthServiceUtil)
+    private readonly authServiceUtil: AuthServiceUtil
+  ) {
     super()
   }
 
@@ -15,6 +21,15 @@ export class JwtGaurdForAdmin extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     // TODO 
     // 是否需要做特殊接口的jwt检验过滤
+    const hasNotJwtAuthGuardKey = this.authServiceUtil.checkRequestNeedJwtAuthGuard(this.reflectot, context)
+    console.log('jwt 守卫：', hasNotJwtAuthGuardKey)
+
+    if (hasNotJwtAuthGuardKey) {
+      // 当检测到 NotJwtAuthGuard 则不会去执行父类的jwt校验了
+      console.log('接口：', context.switchToHttp().getRequest().path, ' 无须令牌也能访问')
+      return true
+    }
+    
     return super.canActivate(context)
   }
 

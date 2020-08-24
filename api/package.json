@@ -86,7 +86,9 @@
       "@libs/db/(.*)": "<rootDir>/libs/db/src/$1",
       "@libs/db": "<rootDir>/libs/db/src",
       "@libs/auth/(.*)": "<rootDir>/libs/auth/src/$1",
-      "@libs/auth": "<rootDir>/libs/auth/src"
+      "@libs/auth": "<rootDir>/libs/auth/src",
+      "@libs/util/(.*)": "<rootDir>/libs/util/src/$1",
+      "@libs/util": "<rootDir>/libs/util/src"
     }
   }
 }

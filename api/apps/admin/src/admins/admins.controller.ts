@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { AdminsService } from './admins.service';
 import { JwtGaurdForAdmin } from '@libs/common/guard/admin/jwt.guard';
 import { LocalGuardForAdmin } from '@libs/common/guard/admin/local.guard';
+import { NotJwtAuthGaurd } from '@libs/common/decorator/not-jwt-auth.decorator';
 
 @ApiTags('管理员模块')
 @Controller('admins')
@@ -20,6 +21,8 @@ export class AdminsController {
 
   @ApiOperation({ summary: '已登录的管理员创建一个新的管理员账号' })
   @ApiBearerAuth()
+  @UseGuards(JwtGaurdForAdmin)
+  @NotJwtAuthGaurd()
   @Post('register')
   register() {
     return {
