@@ -6,7 +6,7 @@ import { NotFound, Unauthorized } from "../error/exeception";
 import { ErrorTypeEnum } from "../error/error.enum";
 import { AdminCreateDto } from "../dto/admin/admin/create.dto";
 
-@EntityRepository()
+@EntityRepository(Admin)
 export class AdminRepository extends Repository<Admin> {
   /**
    * 账号登录

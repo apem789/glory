@@ -26,7 +26,7 @@ export class AdminsService {
     }
     const token = await this.authService.generalToken(payload)
     return {
-      token
+      token: 'ok'
     }
   }
 

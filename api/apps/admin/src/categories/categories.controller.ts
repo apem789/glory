@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, ForbiddenException, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, Delete, Put } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';
 import { CategoryCreateDto } from '@libs/common/dto/admin/category/create.dto';
 import { CategoryUpdateDto } from '@libs/common/dto/admin/category/update.dto';
-import { SelectDto } from '@libs/common/dto/admin/category/select.dto';
-import { DeleteMoreDto } from '@libs/common/dto/admin/category/delete.dto';
+import { CategorySelectDto } from '@libs/common/dto/admin/category/select.dto';
+import { CategoryDeleteMoreDto } from '@libs/common/dto/admin/category/delete.dto';
 
 @ApiTags('分类管理')
 @Controller('categories')
@@ -15,7 +15,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: '获取分类列表' })
   @Get('')
-  getCategoryList(@Query() selectDto: SelectDto) {
+  getCategoryList(@Query() selectDto: CategorySelectDto) {
     console.log('query: ', selectDto)
     return this.categoryService.getCategoryList(selectDto)
   }
@@ -50,7 +50,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: '删除一组id的分类' })
   @Delete('delete')
-  deleteCategories(@Body() deleteMoreDto: DeleteMoreDto) {
+  deleteCategories(@Body() deleteMoreDto: CategoryDeleteMoreDto) {
     const { ids } = deleteMoreDto
     console.log('ids is ', ids)
     return this.categoryService.deleteCategoriesByIds(ids)

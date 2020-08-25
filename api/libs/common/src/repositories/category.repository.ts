@@ -3,7 +3,7 @@ import { Category } from '@libs/db/entities/category.eneity'
 import { CategoryCreateDto } from "../dto/admin/category/create.dto";
 import { ForbiddenException } from "@nestjs/common";
 import { CategoryUpdateDto } from "../dto/admin/category/update.dto";
-import { SelectDto } from "../dto/admin/category/select.dto";
+import { CategorySelectDto } from "../dto/admin/category/select.dto";
 
 /** 分类表-操作 */
 @EntityRepository(Category)
@@ -45,7 +45,7 @@ export class CategoryRepository extends Repository<Category> {
    * @param start 偏移量, 默认: 0
    * @param limit 返回的条目区间, 默认: 10
    */
-  async getCategoryList(selectDto: SelectDto): Promise<{
+  async getCategoryList(selectDto: CategorySelectDto): Promise<{
     list: Category[],
     count: number
   }> {

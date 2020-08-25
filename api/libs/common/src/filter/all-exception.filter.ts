@@ -5,6 +5,9 @@ import { ErrorTypeEnum, ErrorValueEnum } from "../error/error.enum";
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException|Error|any, host: ArgumentsHost): void {
+    // TODO
+    console.log(exception)
+
     const ctx = host.switchToHttp()
     const request = ctx.getRequest()
     const response = ctx.getResponse()

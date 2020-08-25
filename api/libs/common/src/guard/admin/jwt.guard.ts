@@ -4,15 +4,15 @@ import { Observable } from 'rxjs';
 import { ErrorValueEnum, ErrorTypeEnum } from "@libs/common/error/error.enum";
 import { Forbidden, Unauthorized } from "@libs/common/error/exeception";
 import { Reflector } from "@nestjs/core";
-import { AuthServiceUtil } from "libs/util/src/auth/auth.service";
+import { UtilAuthService } from "libs/util/src/auth/auth.service";
 
 /** 自定义 admin-api JWT守卫 */
 @Injectable()
 export class JwtGaurdForAdmin extends AuthGuard('jwt') {
   constructor(
     private readonly reflectot: Reflector,
-    @Inject(AuthServiceUtil)
-    private readonly authServiceUtil: AuthServiceUtil
+    @Inject(UtilAuthService)
+    private readonly utilAuthService: UtilAuthService
   ) {
     super()
   }
@@ -21,7 +21,7 @@ export class JwtGaurdForAdmin extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     // TODO 
     // 是否需要做特殊接口的jwt检验过滤
-    const hasNotJwtAuthGuardKey = this.authServiceUtil.checkRequestNeedJwtAuthGuard(this.reflectot, context)
+    const hasNotJwtAuthGuardKey = this.utilAuthService.checkRequestNeedJwtAuthGuard(this.reflectot, context)
     console.log('jwt 守卫：', hasNotJwtAuthGuardKey)
 
     if (hasNotJwtAuthGuardKey) {

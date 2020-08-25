@@ -6,14 +6,21 @@ import { AdminJwtConfigForAdmin } from '@libs/common/config/admin/jwt.config';
 import { JwtStrategyForAdmin } from '@libs/common/strategy/admin/jwt.strategy';
 import { LocalStrategyForAdmin } from '@libs/common/strategy/admin/local.strategy';
 import { UtilModule } from 'libs/util/src';
+import { AdminRepository } from '@libs/common/repositories/admin.repository';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     AuthModule.register({
       jwtOptions: AdminJwtConfigForAdmin,
-      injects: [JwtStrategyForAdmin, LocalStrategyForAdmin]
+      injects: [
+        JwtStrategyForAdmin,
+        LocalStrategyForAdmin
+      ],
+      repositories: [AdminRepository]
     }),
     forwardRef(() => UtilModule),
+    TypeOrmModule.forFeature([AdminRepository]),
   ],
   controllers: [AdminsController],
   providers: [AdminsService]

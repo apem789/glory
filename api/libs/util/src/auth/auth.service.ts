@@ -3,7 +3,7 @@ import { Reflector } from "@nestjs/core";
 import { isString, isArray } from "util";
 
 @Injectable()
-export class AuthServiceUtil {
+export class UtilAuthService {
   /**
    * 检测当前请求接口是否不受身份限制
    * @param reflector 元字符

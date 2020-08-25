@@ -18,7 +18,9 @@ export class AdminsController {
   @ApiOperation({ summary: '登录授权' })
   @UseGuards(LocalGuardForAdmin)
   @Post('login')
-  login(loginDto: AdminLoginDto) {
+  login(loginDto: AdminLoginDto): Promise<{
+    token: string,
+  }> {
     return this.adminService.login(loginDto)
   }
 
@@ -27,7 +29,9 @@ export class AdminsController {
   @UseGuards(JwtGaurdForAdmin)
   @NotJwtAuthGaurd()
   @Post('register')
-  register(createDto: AdminCreateDto) {
+  register(createDto: AdminCreateDto): Promise<{
+    message: string,
+  }> {
     return this.adminService.register(createDto)
   }
 
@@ -37,18 +41,26 @@ export class AdminsController {
   @Get(':id')
   adminInfo(
     @Param('id', ParseIntPipe) id: number
-  ) {
+  ): {
+    message: string,
+  } | Promise<{
+    message: string,
+  }> {
     return {
-      msg: 'id号管理员的详细信息'
+      message: 'id号管理员的详细信息'
     }
   }
 
   @ApiOperation({ summary: '获取管理员自己的详细信息' })
   @ApiBearerAuth()
   @Get('list')
-  getAdminList(@Query() query) {
+  getAdminList(): {
+    message: string,
+  } | Promise<{
+    message: string,
+  }> {
     return {
-      msg: '获取管理员账号列表'
+      message: '获取管理员账号列表'
     }
   }
 
@@ -56,29 +68,42 @@ export class AdminsController {
   @ApiBearerAuth()
   @Put('update/:id')
   updateAdmin(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() body
-  ) {
+    @Param('id', ParseIntPipe) id: number): {
+    message: string,
+  } | Promise<{
+    message: string,
+  }> {
+    console.log(id)
     return {
-      msg: '修改成功'
+      message: '修改成功'
     }
   }
 
   @ApiOperation({ summary: '获取管理员自己的详细信息' })
   @ApiBearerAuth()
   @Delete('delete/:id')
-  deleteAdmin(@Param('id', ParseIntPipe) id: number) {
+  deleteAdmin(@Param('id', ParseIntPipe) id: number): {
+    message: string,
+  } | Promise<{
+    message: string,
+  }> {
+    console.log(id)
     return {
-      msg: '删除成功'
+      message: '删除成功'
     }
   }
 
   @ApiOperation({ summary: '删除一组id的管理员' })
   @ApiBearerAuth()
   @Delete('delete')
-  deleteAdmins(@Body() deleteMoreCategoryDto: CategoryDeleteMoreDto) {
+  deleteAdmins(@Body() deleteMoreCategoryDto: CategoryDeleteMoreDto): {
+    message: string,
+  } | Promise<{
+    message: string,
+  }> {
+    console.log(deleteMoreCategoryDto)
     return {
-      msg: '全部删除成功'
+      message: '全部删除成功'
     }
   }
 }
