@@ -1,0 +1,9 @@
+### 分类模块api
+@url = http://localhost:3009/categories
+@json = Content-Type: application/json
+
+### 获取分类列表
+GET {{url}}?start=A&limit=10 HTTP/1.1
+
+### test
+GET {{url}}/test/1?start=1&limit=10 HTTP/1.1

@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, Delete, Put, UsePipes, ValidationPipe, Req } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CategoriesService } from './categories.service';
 import { CategoryCreateDto } from '@libs/common/dto/admin/category/create.dto';
 import { CategoryUpdateDto } from '@libs/common/dto/admin/category/update.dto';
 import { CategorySelectDto } from '@libs/common/dto/admin/category/select.dto';
 import { CategoryDeleteMoreDto } from '@libs/common/dto/admin/category/delete.dto';
+import { Category } from '@libs/db/entities/category.eneity';
+import { CategorySelectPipe } from '@libs/common/pipe/admin/category/selete.pipe';
 
 @ApiTags('分类管理')
 @Controller('categories')
@@ -14,10 +16,17 @@ export class CategoriesController {
   ) {}
 
   @ApiOperation({ summary: '获取分类列表' })
-  @Get('')
-  getCategoryList(@Query() selectDto: CategorySelectDto) {
-    console.log('query: ', selectDto)
-    return this.categoryService.getCategoryList(selectDto)
+  @Get()
+  getCategoryList(
+    @Query('start') start: number|string,
+    @Query('limit') limit: number|string,
+    @Query(CategorySelectPipe) query
+  ): Promise<void> {
+    // TODO
+    // bug: queryc参数与dto参数类型不一致
+    // 无法正确转换
+    console.log('query: ', query)
+    return this.categoryService.getCategoryList(query)
   }
 
   @ApiOperation({ summary: '查询某id分类的详细信息' })

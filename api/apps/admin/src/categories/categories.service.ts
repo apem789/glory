@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Query } from '@nestjs/common';
 import { CategoryRepository } from '@libs/common/repositories/category.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryCreateDto } from '@libs/common/dto/admin/category/create.dto';
@@ -62,7 +62,14 @@ export class CategoriesService {
    * @param start 开始的偏移量
    * @param limit 返回的条数
    */
-  async getCategoryList(selectDto: CategorySelectDto) {
+  async getCategoryList(selectDto: CategorySelectDto): Promise<any> {
+    // const { start, limit } = selectDto
+    // if (!start) {
+    //   selectDto.start = 0
+    // }
+    // if (!limit) {
+    //   selectDto.limit = 10
+    // }
 
     const res = await this.categoryReopitory.getCategoryList(selectDto)
     return {

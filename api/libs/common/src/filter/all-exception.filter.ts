@@ -17,7 +17,7 @@ export class AllExceptionFilter implements ExceptionFilter {
 
     // 自定义处理
     const errorCode = exception.response?.errorCode || ErrorTypeEnum.ERROR_TYPE_DEFAULT
-    const message = exception.message || ErrorValueEnum.ERROR_TYPE_DEFAULT
+    const message = exception?.response?.message || exception?.message || ErrorValueEnum.ERROR_TYPE_DEFAULT
     
     response
       .status(status)

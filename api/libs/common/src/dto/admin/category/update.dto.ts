@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsOptional, IsString, IsNotEmpty, Length, IsNumber, Min } from 'class-validator';
+import { IsOptional, IsString, Length, IsNumber, Min } from 'class-validator';
 
 /** 更新某CategoryDto信息 */
 export class CategoryUpdateDto {
