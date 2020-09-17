@@ -4,6 +4,7 @@ import { CategoryCreateDto } from "../dto/admin/category/create.dto";
 import { ForbiddenException } from "@nestjs/common";
 import { CategoryUpdateDto } from "../dto/admin/category/update.dto";
 import { CategorySelectDto } from "../dto/admin/category/select.dto";
+import { NotFound, ParamsException } from "../error/exeception";
 
 /** 分类表-操作 */
 @EntityRepository(Category)
@@ -15,7 +16,7 @@ export class CategoryRepository extends Repository<Category> {
 
     const has = await this.findOne({ where: { name } })
     if (has) {
-      throw new ForbiddenException('分类名已存在,无须再创建')
+      throw new ParamsException('分类名已存在,无须再创建')
     }
 
     const newCategory = new Category()
@@ -31,7 +32,7 @@ export class CategoryRepository extends Repository<Category> {
 
     const currentCategory = id && await this.findOne({ id })
     if (!currentCategory) {
-      throw new ForbiddenException('想要修改的类别不存在')
+      throw new NotFound('想要修改的类别不存在')
     }
 
     currentCategory.name = newName
@@ -66,7 +67,7 @@ export class CategoryRepository extends Repository<Category> {
   async getCategoryById(id: number): Promise<Category> {
     const currentCategory = id && await this.findOne({ id })
     if (!currentCategory) {
-      throw new ForbiddenException('对应的分类不存在')
+      throw new NotFound('对应的分类不存在')
     }
     return currentCategory
   }
@@ -78,7 +79,7 @@ export class CategoryRepository extends Repository<Category> {
   async deleteCategoryById(id: number): Promise<void> {
     const currentCategory = await this.findOne({ id })
     if (!currentCategory) {
-      throw new ForbiddenException("所选的分类不存在")
+      throw new NotFound('所选的分类不存在')
     }
     this.remove(currentCategory)
   }
@@ -90,7 +91,7 @@ export class CategoryRepository extends Repository<Category> {
   async deleteCategoriesByIds(ids: number[]): Promise<void> {
     const res = await this.delete(ids)
     if (res.affected === 0) {
-      throw new ForbiddenException("部分分类不存在,操作完成")
+      throw new NotFound('部分分类不存在,操作完成')
     }
   }
 

@@ -11,16 +11,14 @@ import { CategorySelectPipe } from '@libs/common/pipe/admin/category/selete.pipe
 @ApiTags('分类管理')
 @Controller('categories')
 export class CategoriesController {
-  constructor(
-    private readonly categoryService: CategoriesService
-  ) {}
+  constructor(private readonly categoryService: CategoriesService) {}
 
   @ApiOperation({ summary: '获取分类列表' })
   @Get()
   getCategoryList(
-    @Query('start') start: number|string,
-    @Query('limit') limit: number|string,
-    @Query(CategorySelectPipe) query
+    @Query('start') start: number | string,
+    @Query('limit') limit: number | string,
+    @Query(CategorySelectPipe) query,
   ): Promise<void> {
     // TODO
     // bug: queryc参数与dto参数类型不一致
@@ -36,29 +34,29 @@ export class CategoriesController {
   }
 
   @ApiOperation({ summary: '新建分类' })
-  @Post('create')
+  @Post()
   createNewCategory(@Body() createDto: CategoryCreateDto) {
     return this.categoryService.createNewCategory(createDto)
   }
 
   @ApiOperation({ summary: '更新某分类的信息' })
-  @Put('update/:id')
+  @Put(':id')
   updateCategory(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateDto: CategoryUpdateDto
+    @Body() updateDto: CategoryUpdateDto,
   ) {
     return this.categoryService.updateCategory(id, updateDto)
   }
 
   @ApiOperation({ summary: '删除某id分类' })
-  @Delete('delete/:id')
+  @Delete(':id')
   deletCategory(@Param('id', ParseIntPipe) id: number) {
     console.log('id ', id)
     return this.categoryService.deleteCategoryById(id)
   }
 
   @ApiOperation({ summary: '删除一组id的分类' })
-  @Delete('delete')
+  @Post('deletion')
   deleteCategories(@Body() deleteMoreDto: CategoryDeleteMoreDto) {
     const { ids } = deleteMoreDto
     console.log('ids is ', ids)

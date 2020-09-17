@@ -1,5 +1,5 @@
 ### 分类模块api
-@url = http://localhost:3009/categories
+@url = http://localhost:5009/categories
 @json = Content-Type: application/json
 
 ### 获取分类列表

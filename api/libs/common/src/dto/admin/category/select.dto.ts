@@ -1,12 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsOptional, IsInt, Min, IsString } from 'class-validator';
+import { IsOptional, IsInt } from 'class-validator';
 
 /** 列表查询参数dto */
 export class CategorySelectDto {
-  constructor(params: any) {
-    console.log('-----先进dto-----')
-  }
-
   @ApiProperty({ type: Number, required: false, description: '偏移量,默认:0', example: 0, default: 0 })
   @IsOptional()
   // @IsString({ message: 'start:整数类型' })

@@ -18,9 +18,6 @@ export class CategoriesService {
    */
   async createNewCategory(createDto: CategoryCreateDto) {
     await this.categoryReopitory.createNewCategory(createDto)
-    return {
-      msg: '创建成功',
-    }
   }
 
   /**
