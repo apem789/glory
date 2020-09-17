@@ -51,7 +51,7 @@ export class CategoryRepository extends Repository<Category> {
     count: number
   }> {
     const { start, limit } = selectDto
-
+    console.log(selectDto)
     const [list, count] = await this.findAndCount({ skip: start, take: limit })
 
     return {
