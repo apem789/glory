@@ -24,4 +24,6 @@ pnpm-debug.log*
 
 # env
 .env
-/**/.env
+/api/.env
+/cms/.env
+/web/.env
