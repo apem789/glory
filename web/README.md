@@ -1,24 +1,53 @@
 # web
+主要依赖库:
++ vue3.0、vue-router4.0、vuex4.0
++ axios0.9.2
++ vant3.0 (移动端ui库)
++ typescript3.9.3
 
-## Project setup
+
+## 需求
++ 1."工具样式"概念和 SASS (SCSS)
++ 2.样式重置
++ 3.网站色彩和字体定义 (colors, text)
++ 4.通用flex布局样式定义 (flex)
++ 5.常用边距定义 (margin, padding)
++ 6.主页框架和顶部菜单
++ 7.首页顶部轮播图片 (vue swiper)
++ 8.使用精灵图片 (sprite)
++ 9.使用字体图标 (iconfont)
++ 10.卡片组件 (card)
++ 11.列表卡片组件 (list-card, nav, swiper)
++ 12.首页新闻资讯-数据录入(+后台bug修复)
++ 13.首页新闻资讯-数据接口
++ 14.首页新闻资讯-界面展示
++ 15.首页英雄列表-提取官网数据
++ 16.首页英雄列表-录入数据
++ 17.首页英雄列表-界面展示
++ 18.新闻详情页
++ 19.新闻详情页-完善
++ 20.英雄详情页-1-前端准备
++ 21.英雄详情页-2-后台编辑
++ 22.英雄详情页-3-前端顶部
++ 23.英雄详情页-4-完善
+
+
+## 安装
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 运行
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### 打包
 ```
 yarn build
 ```
 
-### Lints and fixes files
+### eslint
 ```
-yarn lint
+yarn lint --fix
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
